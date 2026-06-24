@@ -130,6 +130,12 @@ final class MapleCommandTranslator {
 		return null;
 	}
 
+	static String translateIsInteger(Command command,
+			Function<ExpressionNode, String> argumentTranslator) {
+		String expression = argumentTranslator.apply(command.getArgument(0));
+		return "type(" + expression + ", integer)";
+	}
+
 	static String translateSolveCubic(Command command,
 			Function<ExpressionNode, String> argumentTranslator) {
 		String expression = argumentTranslator.apply(command.getArgument(0));
@@ -260,7 +266,7 @@ final class MapleCommandTranslator {
 	static String translateCoefficients(Command command,
 			Function<ExpressionNode, String> argumentTranslator) {
 		int numOfArguments = command.getArgumentNumber();
-		String  expression = argumentTranslator.apply(command.getArgument(0));
+		String expression = argumentTranslator.apply(command.getArgument(0));
 
 		// in case of one argument, the command form is Coefficients( <Polynomial> )
 		if (numOfArguments == 1) {
@@ -275,7 +281,6 @@ final class MapleCommandTranslator {
 		}
 
 		return null;
-
 	}
 
 	static String translateDerivative(Command command,

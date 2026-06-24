@@ -404,6 +404,11 @@ public class CASExport {
 					argument -> translateMapleArgument(argument, fullNameToShortName));
 			break;
 
+		case "IsInteger":
+			def = MapleCommandTranslator.translateIsInteger(command,
+					argument -> translateMapleArgument(argument, fullNameToShortName));
+			break;
+
 		case "SolveCubic":
 			def = MapleCommandTranslator.translateSolveCubic(command,
 					argument -> translateMapleArgument(argument, fullNameToShortName));

@@ -283,6 +283,21 @@ final class MapleCommandTranslator {
 		return null;
 	}
 
+	static String translateMod(Command command,
+			Function<ExpressionNode, String> argumentTranslator) {
+		String dividend = argumentTranslator.apply(command.getArgument(0));
+		String divisor = argumentTranslator.apply(command.getArgument(1));
+
+		// if both of the args are integers than the command form is Mod( <Dividend Number>, <Divisor Number> )
+		if (isIntegerExpression(dividend) && isIntegerExpression(divisor)) {
+			return dividend + " mod " + divisor;
+		}
+
+		// if one of the args is polynomial than the command form is Mod( <Dividend Polynomial>, <Divisor Polynomial> )
+		String var =  getSingleVariableName(command,1);
+		return "rem(" + dividend + ", " +  divisor + ", " +  var + ")";
+	}
+
 	static String translateDerivative(Command command,
 			Function<ExpressionNode, String> argumentTranslator) {
 		int numOfArguments = command.getArgumentNumber();

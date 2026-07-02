@@ -3,8 +3,8 @@ package org.geogebra.common.export;
 import static org.geogebra.common.main.App.VIEW_CAS;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
+
 
 import org.geogebra.common.awt.GColor;
 import org.geogebra.common.awt.GFont;
@@ -406,6 +406,11 @@ public class CASExport {
 
 		case "IsInteger":
 			def = MapleCommandTranslator.translateIsInteger(command,
+					argument -> translateMapleArgument(argument, fullNameToShortName));
+			break;
+
+		case "Mod":
+			def = MapleCommandTranslator.translateMod(command,
 					argument -> translateMapleArgument(argument, fullNameToShortName));
 			break;
 

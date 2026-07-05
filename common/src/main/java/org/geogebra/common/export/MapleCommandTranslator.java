@@ -298,6 +298,21 @@ final class MapleCommandTranslator {
 		return "rem(" + dividend + ", " +  divisor + ", " +  var + ")";
 	}
 
+	static String translateSum(Command command,
+			Function<ExpressionNode, String> argumentTranslator) {
+		int numOfArguments = command.getArgumentNumber();
+
+		String firstArg = argumentTranslator.apply(command.getArgument(0));
+		String secondArg = argumentTranslator.apply(command.getArgument(1));
+
+		if (numOfArguments == 4) {
+			String startValue = fixSyntax(argumentTranslator.apply(command.getArgument(2)));
+			String endValue = fixSyntax(argumentTranslator.apply(command.getArgument(3)));
+			return "sum(" + firstArg + ", " + secondArg + " = " + startValue + " .. " + endValue + ")";
+		}
+		return null;
+	}
+
 	static String translateDerivative(Command command,
 			Function<ExpressionNode, String> argumentTranslator) {
 		int numOfArguments = command.getArgumentNumber();

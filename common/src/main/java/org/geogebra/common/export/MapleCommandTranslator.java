@@ -298,14 +298,34 @@ final class MapleCommandTranslator {
 		return "rem(" + dividend + ", " +  divisor + ", " +  var + ")";
 	}
 
+	// TODO: add support for the other cases that command had
 	static String translateSum(Command command,
 			Function<ExpressionNode, String> argumentTranslator) {
 		int numOfArguments = command.getArgumentNumber();
 
 		String firstArg = argumentTranslator.apply(command.getArgument(0));
-		String secondArg = argumentTranslator.apply(command.getArgument(1));
+
+		// if there is only one arg then the command form is Sum( <List> )
+		if (numOfArguments == 1) {
+			firstArg = firstArg.replace("{", "[").replace("}", "]");
+			return "add(op( " + firstArg + " ))";
+		}
+
+		// if there is two arg then the command form is Sum( <List>, <Number of Elements> ) or Sum( <List>, <List of Frequencies> )
+		if (numOfArguments == 2) {
+			String secondArg = argumentTranslator.apply(command.getArgument(1));
+			// in this case the command form is Sum( <List>, <Number of Elements> )
+			if (isIntegerExpression(secondArg)) {
+				return "add(op( " + firstArg + "[1.." + secondArg +"]))";
+			} else {
+				secondArg = secondArg.replace("{", "[").replace("}", "]");
+				//add([1, 2, 3, 4, 5][i] * [3, 2, 4, 4, 1][i], i = 1 .. nops([1, 2, 3, 4, 5]));
+				return "add(" + firstArg + "[i] * " +secondArg + "[i],i = 1..nops( " + firstArg + "))";
+			}
+		}
 
 		if (numOfArguments == 4) {
+			String secondArg = argumentTranslator.apply(command.getArgument(1));
 			String startValue = fixSyntax(argumentTranslator.apply(command.getArgument(2)));
 			String endValue = fixSyntax(argumentTranslator.apply(command.getArgument(3)));
 			return "sum(" + firstArg + ", " + secondArg + " = " + startValue + " .. " + endValue + ")";

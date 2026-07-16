@@ -332,6 +332,12 @@ final class MapleCommandTranslator {
 		return null;
 	}
 
+	static String translatePreviousPrime(Command command,
+			Function<ExpressionNode, String> argumentTranslator) {
+		String num =  argumentTranslator.apply(command.getArgument(0));
+		return "prevprime(" + num + ")";
+	}
+
 	static String translateDerivative(Command command,
 			Function<ExpressionNode, String> argumentTranslator) {
 		int numOfArguments = command.getArgumentNumber();

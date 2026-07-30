@@ -89,7 +89,7 @@ public interface GeoGebraConstants {
 				// change 5.0.274.0 to 6.0.274.0
 				return VERSION_STRING.replace("5.0.", "6.0.") + "-" + suffix;
 			case DESKTOP:
-				return VERSION_STRING + "CmdDes-" + suffix;
+				return VERSION_STRING + "-" + suffix;
 			}
 		}
 

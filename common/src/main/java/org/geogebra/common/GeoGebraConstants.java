@@ -14,7 +14,7 @@ public interface GeoGebraConstants {
 	/** complete version string */
 	public static final String VERSION_STRING = "5.0.641.0";
 	/** GeoGebra Discovery version string */
-	public static final String DISCOVERY_VERSION = "2026May27";
+	public static final String DISCOVERY_VERSION = "2026Jul30";
 
 	/** proper noun, should NOT be translated / transliterated */
 	public static final String APPLICATION_NAME = "GeoGebra";
@@ -89,7 +89,7 @@ public interface GeoGebraConstants {
 				// change 5.0.274.0 to 6.0.274.0
 				return VERSION_STRING.replace("5.0.", "6.0.") + "-" + suffix;
 			case DESKTOP:
-				return VERSION_STRING + "-" + suffix;
+				return VERSION_STRING + "CmdDes-" + suffix;
 			}
 		}
 

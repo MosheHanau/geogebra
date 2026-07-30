@@ -291,7 +291,8 @@ public class CASExport {
 			String var = cell.getAssignmentVariable();
 			if (var != null && !var.isEmpty() && !var.equals("NONE")) {
 				String FullAssignment = cell.getInput(StringTemplate.defaultTemplate);
-				FullAssignment = FullAssignment.substring(0 , FullAssignment.indexOf(":=")).trim();
+				// assigments are sometimes done with ":" instead of ":="
+				FullAssignment = FullAssignment.substring(0 , FullAssignment.indexOf(":")).trim();
 				shortNameToFullName.put(var , FullAssignment);
 				fullNameToShortName.put(FullAssignment, var);
 			}

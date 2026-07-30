@@ -29,9 +29,10 @@ public class HTML5Export {
 		// make sure translation files loaded OK
 		sb.append("<meta charset=\"utf-8\"/>\n");
 
-		if (app.has(Feature.TUBE_BETA)) {
+		if (app.has(Feature.TUBE_BETA)) { // this seems to be hacked as of 2026-07-30
+			// see https://github.com/kovzol/geogebra-discovery/issues/12
 			sb.append(
-					"<script src=\"https://beta.geogebra.org/scripts/deployggb.js\"></script>\n\n");
+					"<script src=\"https://geogebra.org/apps/deployggb.js\"></script>\n\n");
 
 		} else {
 			sb.append(

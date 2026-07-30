@@ -5,7 +5,7 @@ import static org.geogebra.common.cas.giac.CASgiac.CustomFunctions.setDependenci
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.kernel.algos.AlgoElement;
 import org.geogebra.common.kernel.commands.Commands;
-import org.geogebra.common.kernel.geos.GeoElement;
+import org.geogebra.common.kernel.geos.GeoBoolean;import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.geos.GeoText;
 import org.geogebra.common.util.Prover;
 import org.geogebra.common.util.debug.Log;
@@ -20,10 +20,12 @@ public class AlgoDescribeStatement extends AlgoElement {
 
     private GeoElement root; // input
     private GeoText text; // output
+    private boolean breakLines; // whether break lines in the output
 
-    public AlgoDescribeStatement(Construction cons, String label, GeoElement root) {
+    public AlgoDescribeStatement(Construction cons, String label, GeoElement root, boolean breakLines) {
         super(cons);
         this.root = root;
+        this.breakLines = breakLines;
 
         text = new GeoText(cons);
         setInputOutput(); // for AlgoElement
@@ -56,7 +58,7 @@ public class AlgoDescribeStatement extends AlgoElement {
     }
 
     public void compute() {
-        getGeoText().setTextString(Prover.getTextFormat(root, true, " "));
+        getGeoText().setTextString(Prover.getTextFormat(root, true, breakLines ? "\n" : " "));
 
     }
 }

@@ -4,6 +4,7 @@ import org.geogebra.common.kernel.CircularDefinitionException;
 import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.arithmetic.Command;
 import org.geogebra.common.kernel.commands.CommandProcessor;
+import org.geogebra.common.kernel.geos.GeoBoolean;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.kernel.prover.AlgoDescribeStatement;
 import org.geogebra.common.main.MyError;
@@ -25,13 +26,21 @@ public class CmdDescribeStatement extends CommandProcessor {
         GeoElement[] arg;
         arg = resArgs(c);
         if (n == 1) {
-
             AlgoDescribeStatement algo = new AlgoDescribeStatement(cons, c.getLabel(),
-                    arg[0]);
+                    arg[0], false);
 
             GeoElement[] ret = {algo.getGeoText()};
             return ret;
         }
+        if (n == 2 && arg[1] instanceof GeoBoolean) {
+
+            AlgoDescribeStatement algo = new AlgoDescribeStatement(cons, c.getLabel(),
+                    arg[0], ((GeoBoolean) arg[1]).getBoolean());
+
+            GeoElement[] ret = {algo.getGeoText()};
+            return ret;
+        }
+
         throw argNumErr(c);
 
     }

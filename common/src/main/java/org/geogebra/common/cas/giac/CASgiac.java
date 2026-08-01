@@ -335,11 +335,14 @@ public abstract class CASgiac implements CASGenericInterface {
 		 * of discrete points, then convert the linear polynomials to a product
 		 * of circle definitions with zero radius.
 		 */
-		GEOM_ELIM("geomElim", ggbGiac("geomElim (polys,elimvars,precision)->"
+		GEOM_ELIM("geomElim", ggbGiac("geomElim (polys,elimvars,precision,curvevarx,curvevary)->"
 				+ "{ local ee,ll,ff,gg,ii;"
 				+ "  print(polys);"
 				+ "  print(elimvars);"
-				+ "  ee:=eliminate(polys,revlist(elimvars));"
+				+ "  ee:=eliminate(polys,revlist(elimvars),[curvevary,curvevarx]);" // force order (3rd param)
+				// no 3rd param: let Giac choose automatically (old behavior)
+				// [curvevary,curvevarx]: experimental behavior, makes the Cayley oval envelope work
+				// [curvevarx,curvevary]: experimental behavior, the Cayley oval envelope does not work (too slow)
 				+ "  print(ee);"
 				+ "  ll:=lvar(ee);"
 				+ "  print(ll);"
@@ -517,7 +520,7 @@ public abstract class CASgiac implements CASGenericInterface {
 		 * publicly.
 		 */
 		LOCUS_EQU("locusEqu", ggbGiac("locusEqu(polys,elimvars,precision,curvevarx,curvevary)->" +
-				"implicitCurveCoeffs(subst(geomElim(polys,elimvars,precision),[curvevarx=x,curvevary=y]))")),
+				"implicitCurveCoeffs(subst(geomElim(polys,elimvars,precision,curvevarx,curvevary),[curvevarx=x,curvevary=y]))")),
 		/**
 		 * Compute coefficient matrix of the input polynomial. The output is a
 		 * flattened variant of the matrix: the elements are returned row by

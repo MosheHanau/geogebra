@@ -339,7 +339,7 @@ public abstract class CASgiac implements CASGenericInterface {
 				+ "{ local ee,ll,ff,gg,ii;"
 				+ "  print(polys);"
 				+ "  print(elimvars);"
-				+ "  ee:=eliminate(polys,revlist(elimvars),[curvevary,curvevarx]);" // force order (3rd param)
+				+ "  ee:=eliminate(polys,revlist(elimvars),[curvevarx,curvevary]);" // force order (3rd param)
 				// no 3rd param: let Giac choose automatically (old behavior)
 				// [curvevary,curvevarx]: experimental behavior, makes the Cayley oval envelope work
 				// [curvevarx,curvevary]: experimental behavior, the Cayley oval envelope does not work (too slow)

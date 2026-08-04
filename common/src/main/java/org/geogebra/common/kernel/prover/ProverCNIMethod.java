@@ -424,7 +424,25 @@ public class ProverCNIMethod {
 		}
 		toEliminate += extraVariables;
 		toEliminate = removeTail(toEliminate, 1);
-		rest += "[" + toEliminate + "])]";
+		rest += "[" + toEliminate + "],";
+
+		// Add third parameter for the eliminate command.
+		// It specifies the variable ordering for the remaining variables (that are not eliminated).
+		// Since August 2026. This is available only in the newer Giac version (since February 2026).
+		String remVars = "[";
+		boolean first = true;
+		for (String v : toEliminateRhsVars) {
+			if (!first) {
+				remVars += ",";
+			} else {
+				first = false;
+			}
+			remVars += v;
+		}
+		remVars += "]";
+		rest += remVars;
+
+		rest += ")]";
 		int codeLengthLines = predefinitions.length + declarationsA.length + 1;
 		rest += "][" + (codeLengthLines - 1) + "]";
 		program += rest;

@@ -429,7 +429,7 @@ public class ProverCNIMethod {
 		// Add third parameter for the eliminate command.
 		// It specifies the variable ordering for the remaining variables (that are not eliminated).
 		// Since August 2026. This is available only in the newer Giac version (since February 2026).
-		String remVars = ",[";
+		String remVars = ",revlist([";
 		if (toEliminateRhsVars != null) {
 			boolean first = true;
 			for (String v : toEliminateRhsVars) {
@@ -441,7 +441,7 @@ public class ProverCNIMethod {
 				remVars += v;
 			}
 		}
-		remVars += "]";
+		remVars += "])";
 		rest += remVars;
 
 		rest += ")]";

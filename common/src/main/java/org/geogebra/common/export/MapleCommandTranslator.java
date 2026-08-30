@@ -344,6 +344,17 @@ final class MapleCommandTranslator {
 		return "nextprime(" + num + ")";
 	}
 
+	static String translateProduct(Command command,
+			Function<ExpressionNode, String> argumentTranslator) {
+		int  numOfArguments = command.getArgumentNumber();
+
+		// if the num of args is one then the command form is Product( <List of Raw Data> )
+		if (numOfArguments == 1) {
+
+		}
+		return "";
+	}
+
 	static String translateDerivative(Command command,
 			Function<ExpressionNode, String> argumentTranslator) {
 		int numOfArguments = command.getArgumentNumber();
